@@ -32,7 +32,32 @@ if len(ImgIn.shape) == 3:
 else:
   ImgGray = ImgIn
 
+####################### Image Processing Algorithm ###########################
 
+# 1. Color channel selection
+# select the green channel (best contrast)
+ImgGreen=ImgIn[:,:,1]
+
+# 2. CLAHE (Contrast Limited Adaptive Histogram Equalization
+
+clahe = cv2.createCLAHE(clipLimit=0.01, tileGridSize=(8,8))
+clahe_img = clahe.apply(ImgGreen)
+
+# display the image before and after processing
+plt.figure(figsize=(10, 5))
+
+plt.subplot(1, 2, 1)
+plt.imshow(ImgGreen, cmap="gray")
+plt.title("Green Channel Input")
+plt.axis("off")
+
+plt.subplot(1, 2, 2)
+plt.imshow(clahe_img, cmap="gray")
+plt.title("CLAHE Enhanced Output")
+plt.axis("off")
+
+plt.tight_layout()
+plt.show()
 
 
 
